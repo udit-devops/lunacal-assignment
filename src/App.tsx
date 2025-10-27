@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 
 const ProfileGalleryApp = () => {
   const [activeTab, setActiveTab] = useState('About Me');
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [images, setImages] = useState([
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [images, setImages] = useState<string[]>([
     'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect fill="%234a5568" width="400" height="400"/%3E%3Ctext fill="%23cbd5e0" font-family="Arial" font-size="24" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3EGallery 1%3C/text%3E%3C/svg%3E',
     'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect fill="%234a5568" width="400" height="400"/%3E%3Ctext fill="%23cbd5e0" font-family="Arial" font-size="24" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3EGallery 2%3C/text%3E%3C/svg%3E',
     'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect fill="%234a5568" width="400" height="400"/%3E%3Ctext fill="%23cbd5e0" font-family="Arial" font-size="24" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3EGallery 3%3C/text%3E%3C/svg%3E'
@@ -12,18 +12,20 @@ const ProfileGalleryApp = () => {
 
   const tabs = ['About Me', 'Experiences', 'Recommended'];
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImages([...images, reader.result]);
+        if (typeof reader.result === 'string') {
+          setImages([...images, reader.result]);
+        }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleImageClick = (index) => {
+  const handleImageClick = (index: number) => {
     setSelectedImage(index);
   };
 
