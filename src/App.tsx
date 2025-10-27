@@ -73,16 +73,20 @@ const ProfileGalleryApp = () => {
                   </>
                 )}
                 {activeTab === 'Experiences' && (
-                  <p>
-                    Experience content goes here. This section would typically contain
-                    work history, achievements, and professional milestones.
-                  </p>
+                  <>
+                    <p>
+                      Experience content goes here. This section would typically contain
+                      work history, achievements, and professional milestones.
+                    </p>
+                  </>
                 )}
                 {activeTab === 'Recommended' && (
-                  <p>
-                    Recommended content goes here. This could include testimonials,
-                    endorsements, or suggested connections.
-                  </p>
+                  <>
+                    <p>
+                      Recommended content goes here. This could include testimonials,
+                      endorsements, or suggested connections.
+                    </p>
+                  </>
                 )}
               </div>
             </div>
@@ -133,7 +137,9 @@ const ProfileGalleryApp = () => {
                 <div
                   key={index}
                   onClick={() => handleImageClick(index)}
-                  className="relative aspect-square rounded-3xl overflow-hidden cursor-pointer group"
+                  className={`relative aspect-square rounded-3xl overflow-hidden cursor-pointer group ${
+                    selectedImage === index ? 'ring-4 ring-blue-400' : ''
+                  }`}
                   style={{
                     transition: 'all 0.5s ease-out',
                     transform: 'scale(1)',
